@@ -1,0 +1,17 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/iconfont/iconfont.ttf",
+      "sha1": "a95568cb011ac1af156df765836d19f7f5d8baba"
+    },
+    {
+      "path": "assets/iconfont/iconfont.woff",
+      "sha1": "b229785d2dccd0cc994933011e643fa646572285"
+    },
+    {
+      "path": "assets/iconfont/iconfont.woff2",
+      "sha1": "966925d5e3f422a6959e49c2d0774a4c5e536cd2"
+    }
+  ]
+}
