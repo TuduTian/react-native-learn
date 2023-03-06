@@ -46,3 +46,52 @@
 ```
 
 
+
+
+## 打包安卓 (mac)
+1. 没有的key的话看这里
+	1. 查自己的MAC ,有没有安装Java的 JDK 终端输入 /usr/libexec/java_home -V
+	2. 如果安装过的话会提示她的安装路径 ==> /Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home
+	3. 进入这个文件后执行 sudo keytool -genkey -alias 你的key名称.keystore -keyalg RSA -sigalg SHA1WithRSA -validity 20000 -keysize 1024 -keystore 你的别名  -v
+	4. 按照提示进行输入后 在此进行在终端执行 sudo keytool -importkeystore -srckeystore ./你的key名称.keystore -destkeystore 你的别名 -deststoretype JKS
+	5. 这过程是要输入密码的，密码就是你生成的时候输入的密码，这个密码要记住哦
+	6. 如果提示的是成功导入的话，那么恭喜您成功了！
+	
+2. 有key的情况下，按照1查询到java进入到java的文件 可以查看.keystore结尾的文件，他就是你的key
+3. 把key复制到 android 下面的app目录下
+4. 在 android 目录下面的 gradle.properties 文件中添加
+```js
+# 配置签名  
+MYAPP_RELEASE_STORE_FILE=你的key名称 例如 cc.keystore
+MYAPP_RELEASE_KEY_ALIAS=你写入的别名 cc 或者是 cc.keystore
+MYAPP_RELEASE_STORE_PASSWORD= 你生成key时的密码
+MYAPP_RELEASE_KEY_PASSWORD=你生成key时的密码
+```
+5. 前往 /android/app/build.gradle 假如
+```js
+...
+android {
+    ...
+    defaultConfig { ... }
+    signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+                storeFile file(MYAPP_RELEASE_STORE_FILE)
+                storePassword MYAPP_RELEASE_STORE_PASSWORD
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            }
+        }
+    }
+    buildTypes {
+        release {
+            ...
+            signingConfig signingConfigs.release
+        }
+    }
+}
+...
+```
+6. 配置打包命令  package.json script 中配置 "b-a":"cd android && ./gradlew assembleRelease"
+7. 终端输入打包命令 yarn b-a 
+8. 打包后的文件在 /android/app/build/outputs/apk/release/ 下面的apk文件

@@ -1,5 +1,5 @@
-import {FlatList, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import {FlatList, Text} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
 import {$apiSearchBook} from '../../api/modules/book';
 import BuildBookItem from './BuildItem';
 import type {IBookState, BookItem} from './type';
@@ -17,9 +17,8 @@ const Book = ({navigation}) => {
   });
   const [loading, setLoading] = useState(false); // loading
   // 初始化数据
-  async function initData(params) {
+  const initData = useCallback(async () => {
     const res = await $apiSearchBook(params);
-    console.log(res);
     if (res.code == 0) {
       const newList = res.data.map((v: BookItem) => {
         v.uri = v.cover.replace('http://', 'https://');
@@ -27,12 +26,12 @@ const Book = ({navigation}) => {
       });
       setBookState({
         count: res.count,
-        list: [...bookState.list, ...newList],
+        list: [...newList],
       });
     }
     firstLoading = false; // 不是第一次记载了就
     setLoading(false);
-  }
+  }, [params]);
 
   // 触底加载
   const bottomLoad = () => {
@@ -46,7 +45,7 @@ const Book = ({navigation}) => {
   // 下拉刷新
   const refreshHandler = () => {
     setLoading(true);
-    initData(params);
+    initData();
   };
 
   //触摸子元素时进行跳转路由
@@ -57,8 +56,9 @@ const Book = ({navigation}) => {
   }
   useEffect(() => {
     setLoading(true);
-    initData(params);
-  }, []);
+    initData();
+  }, [initData]);
+
   if (firstLoading) {
     const ele = <Text>请稍等。。</Text>;
     return ele;
