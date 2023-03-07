@@ -1,6 +1,6 @@
 import {FlatList, Text} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
-import {$apiSearchBook} from '../../api/modules/book';
+import {$apiSearchBook} from '../../../api/modules/book';
 import BuildBookItem from './BuildItem';
 import type {IBookState, BookItem} from './type';
 let firstLoading = true; //是否是第一次加载
@@ -35,14 +35,15 @@ const Book = ({navigation}) => {
 
   // 触底加载
   const bottomLoad = () => {
-    console.log('触底加载？');
     setParams({
       ...params,
-      from: 2,
+      from: ++params.from,
     });
+    setLoading(true);
+    initData();
   };
 
-  // 下拉刷新
+  // 下拉刷新·
   const refreshHandler = () => {
     setLoading(true);
     initData();
@@ -56,7 +57,7 @@ const Book = ({navigation}) => {
   }
   useEffect(() => {
     setLoading(true);
-    initData();
+    /*  initData(); */
   }, [initData]);
 
   if (firstLoading) {

@@ -8,7 +8,7 @@ const router = [
   {
     name: 'details', // 详情页
     title: '小说详情', // 头部展示标题
-    component: require('../../pages/Book/Detail').default,
+    component: require('../pages/Book/Detail').default,
   },
 ];
 export default router;

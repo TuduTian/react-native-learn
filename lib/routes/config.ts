@@ -1,5 +1,5 @@
-import Book from '../../pages/Book';
-import Cartoon from '../../pages/Cartoon';
+import Book from '../pages/Book';
+import Cartoon from '../pages/Cartoon';
 
 /**
  * 底部导航
