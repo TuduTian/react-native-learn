@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react';
 
 import {
-  TouchableNativeFeedback,
+  TouchableOpacity,
   View,
   Text,
   GestureResponderEvent,
@@ -16,13 +16,17 @@ interface Iprops {
 const MyButton = (props: Iprops) => {
   const {onPress: onPressHandler, children, style} = props;
   return (
-    <TouchableNativeFeedback onPress={onPressHandler}>
+    /* activeOpacity 激活时的透明度，  */
+    <TouchableOpacity activeOpacity={0.8} onPress={onPressHandler}>
       <View style={{alignItems: 'center'}}>
         <View style={style}>
-          <Text style={{color: '#fff'}}> {children}</Text>
+          <Text style={{color: '#fff', fontSize: global.font(28)}}>
+            {' '}
+            {children}
+          </Text>
         </View>
       </View>
-    </TouchableNativeFeedback>
+    </TouchableOpacity>
   );
 };
 

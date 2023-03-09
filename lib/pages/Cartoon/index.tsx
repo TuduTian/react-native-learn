@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 
-import {View, TextInput, StyleSheet, Platform} from 'react-native';
+import {View, TextInput, StyleSheet} from 'react-native';
 import MyButton from '../../components/MyButton';
+import Card from '../../components/Card';
 
 const UserPage = () => {
   const [form, setForm] = useState({
@@ -44,15 +45,16 @@ const UserPage = () => {
           /* 密码输入框 */
           secureTextEntry={true}
           defaultValue={form.password}
-          keyboardType={
-            Platform.OS == 'ios' ? 'ascii-capable' : 'visible-password'
-          }
+          keyboardType="default"
         />
       </View>
       {/* 按钮 */}
       <MyButton style={styles.button} onPress={clickHandler}>
         登录
       </MyButton>
+
+      {/* 测试组件 */}
+      <Card />
     </>
   );
 };

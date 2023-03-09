@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableNativeFeedback,
-} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {BookItem} from './type';
 interface IProps {
   item: BookItem;
@@ -15,8 +9,8 @@ interface IProps {
 const BuildBookItem = (props: IProps) => {
   const {item, onPress} = props;
   return (
-    <TouchableNativeFeedback onPress={() => onPress(item)}>
-      <View style={styles.card}>
+    <View style={styles.card}>
+      <TouchableOpacity activeOpacity={0.6} onPress={() => onPress(item)}>
         <Image style={styles.image} source={{uri: item.uri}} />
         {/*
        numberOfLines 最多两行  ellipsizeMode 超过的话省略号
@@ -28,8 +22,8 @@ const BuildBookItem = (props: IProps) => {
           style={{textAlign: 'center'}}>
           {item.title}
         </Text>
-      </View>
-    </TouchableNativeFeedback>
+      </TouchableOpacity>
+    </View>
   );
 };
 

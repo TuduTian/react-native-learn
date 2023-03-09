@@ -12,7 +12,7 @@ const Detail = props => {
   }, [props.navigation, data.title]);
   return (
     <View>
-      <Text>123123</Text>
+      <Text>{data.title}</Text>
     </View>
   );
 };

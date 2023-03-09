@@ -1,52 +1,69 @@
-import {FlatList, Text} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
-import {$apiSearchBook} from '../../../api/modules/book';
+import {FlatList, Text, ActivityIndicator} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import BuildBookItem from './BuildItem';
 import type {IBookState, BookItem} from './type';
-let firstLoading = true; //是否是第一次加载
+import BOOK_DATA from '../../../db/book';
+import styled from 'styled-components';
+let ID = 1;
+let count = 0;
+const FooterComponents = styled.View`
+  height: ${global.pxw(80)}px;
+  width: 100%;
+  padding-bottom: ${global.pxw(20)}px;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Font = styled.Text`
+  font-size: 16px;
+  color: #000;
+`;
+
 const Book = ({navigation}) => {
   const [bookState, setBookState] = useState<IBookState>({
     list: [], // 数据列表
-    count: 0, //总数
+    count: 20, //总数
   }); //要展示的数据列表数组
-  const [params, setParams] = useState({
-    option: 'title',
-    key: '全职高手',
-    from: 1,
-    size: 18,
-  });
   const [loading, setLoading] = useState(false); // loading
+  const [end, setEnd] = useState(false);
   // 初始化数据
-  const initData = useCallback(async () => {
-    const res = await $apiSearchBook(params);
-    if (res.code == 0) {
-      const newList = res.data.map((v: BookItem) => {
-        v.uri = v.cover.replace('http://', 'https://');
-        return v;
-      });
-      setBookState({
-        count: res.count,
-        list: [...newList],
-      });
+  const initData = (bool?: boolean) => {
+    if (bool) {
+      setTimeout(() => {
+        setBookState({
+          list: bookState.list.reverse(),
+          count: bookState.count,
+        });
+        setLoading(false);
+      }, 1000);
+      return;
     }
-    firstLoading = false; // 不是第一次记载了就
-    setLoading(false);
-  }, [params]);
 
+    if (count === 3) {
+      setEnd(true);
+      return;
+    }
+
+    count++;
+    const newList = BOOK_DATA.map((v: BookItem) => {
+      v.uri = v.cover.replace('http://', 'https://');
+      v.id = ++ID + Date.now();
+      return v;
+    });
+    setBookState({
+      list: [...bookState.list, ...newList],
+      count: bookState.count,
+    });
+    setLoading(false);
+  };
   // 触底加载
   const bottomLoad = () => {
-    setParams({
-      ...params,
-      from: ++params.from,
-    });
-    setLoading(true);
     initData();
   };
-
   // 下拉刷新·
   const refreshHandler = () => {
     setLoading(true);
-    initData();
+    initData(true);
   };
 
   //触摸子元素时进行跳转路由
@@ -55,27 +72,39 @@ const Book = ({navigation}) => {
       data,
     });
   }
+
   useEffect(() => {
     setLoading(true);
-    /*  initData(); */
-  }, [initData]);
+    initData();
+  }, []);
 
-  if (firstLoading) {
-    const ele = <Text>请稍等。。</Text>;
-    return ele;
-  }
+  const BuildFooter = () => {
+    if (end) {
+      return (
+        <FooterComponents>
+          <Font>已全部加载完成</Font>
+        </FooterComponents>
+      );
+    }
+    return (
+      <FooterComponents>
+        <ActivityIndicator size="large" color="yellow" />
+      </FooterComponents>
+    );
+  };
   return (
     <FlatList
       numColumns={3}
       /* 内容为空时的内容展示 */
       ListEmptyComponent={<Text>当前搜索暂无更多内容</Text>}
       /* 当距离底部多远时触发 onEndReached 函数 */
-      onEndReachedThreshold={0.3}
       onEndReached={bottomLoad}
+      /* 尾部组件 可以展示一个loading */
+      ListFooterComponent={BuildFooter}
       /* 下拉刷新函数 */
       onRefresh={refreshHandler}
       refreshing={loading}
-      keyExtractor={item => item.fictionId}
+      keyExtractor={item => item.id}
       contentContainerStyle={{
         padding: global.pxw(10),
       }}
