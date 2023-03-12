@@ -7,7 +7,8 @@
  * pixel: 2
  * 如果需要更改只需改动：uiWidthPx 、 uiHeightPx 、 defaultPixel 即可
  */
-import {Dimensions, PixelRatio} from 'react-native';
+import {Dimensions, PixelRatio, Platform} from 'react-native';
+
 //定义设计稿总宽高 单位是px
 const uiWidthPx = 750;
 const uiHeightPx = 1334;
@@ -44,3 +45,6 @@ global.font = function getFontDp(number: number) {
   number = Math.round((number * scale) / fontScale / defaultPixel);
   return number;
 };
+
+// 如果是ios  不是ios 就只有这两种情况
+global.isIOS = Platform.OS == 'ios';

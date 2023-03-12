@@ -2,16 +2,36 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "assets/iconfont/demo.css",
+      "sha1": "65c50db528a5abe06426b1a20735feaf1f2a0d9b"
+    },
+    {
+      "path": "assets/iconfont/demo_index.html",
+      "sha1": "3487d6fd16ae8fba1d1b37c4e3b536c314f64252"
+    },
+    {
+      "path": "assets/iconfont/iconfont.css",
+      "sha1": "e8e8a659250aea370f722dfb815e532a1842d8ee"
+    },
+    {
+      "path": "assets/iconfont/iconfont.js",
+      "sha1": "634c1f7b08af87c2964d31e1ac0facce8a0356eb"
+    },
+    {
+      "path": "assets/iconfont/iconfont.json",
+      "sha1": "8b71761fc90f88a9e6b0556b2a02e5bc963389db"
+    },
+    {
       "path": "assets/iconfont/iconfont.ttf",
-      "sha1": "a95568cb011ac1af156df765836d19f7f5d8baba"
+      "sha1": "139bfa123d917c14d69ad3a30301b0630d610901"
     },
     {
       "path": "assets/iconfont/iconfont.woff",
-      "sha1": "b229785d2dccd0cc994933011e643fa646572285"
+      "sha1": "82e9cfbff72f7e8d48bac8913eb927847557f3de"
     },
     {
       "path": "assets/iconfont/iconfont.woff2",
-      "sha1": "966925d5e3f422a6959e49c2d0774a4c5e536cd2"
+      "sha1": "eef4b55da94fe9ab16a938cc324bc7d30a4bfad7"
     }
   ]
 }

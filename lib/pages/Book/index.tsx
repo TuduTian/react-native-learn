@@ -70,6 +70,8 @@ const Book = ({navigation}) => {
   function onPressHandler(data: BookItem) {
     navigation.navigate('details', {
       data,
+      title: data.title,
+      back_title: '小说',
     });
   }
 

@@ -27,7 +27,7 @@
 	    : global.FileReader
 	}
 ```
-2. 打开react-native-debugger就可以了
+2. 打开 react-native-debugger 就可以了
 
 
 ## ios图片出不来的原因，http的原因 因为一下安全策略
