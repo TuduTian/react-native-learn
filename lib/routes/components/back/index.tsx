@@ -1,17 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
-import {
-  TouchableNativeFeedback,
-  View,
-  Text,
-  StyleSheet,
-  Platform,
-} from 'react-native';
+import {TouchableNativeFeedback, View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 
 const Back = props => {
-  const {title, showBack = true} = props;
+  const {showBack = true} = props;
   const navigation = useNavigation();
-  if (!showBack || title) {
+  if (!showBack) {
     return null;
   }
 
@@ -19,6 +13,7 @@ const Back = props => {
     if (typeof props.onPress === 'function') {
       props.onPress();
     }
+    console.log(11111);
     navigation.goBack();
   };
   return (
@@ -44,7 +39,8 @@ const backStyle = StyleSheet.create({
     left: 0,
     width: 40,
     flexDirection: 'row',
-    top: Platform.OS == 'ios' ? 45 : 47,
+    top: 3,
+    zIndex: 999,
   },
 });
 

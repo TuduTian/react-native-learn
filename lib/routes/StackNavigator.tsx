@@ -23,8 +23,8 @@ const StackNavigator = () => {
               const title =
                 getChildTitle(route) || route.params?.title || item.title;
               return {
-                header: props => {
-                  return <Nav.TabHead {...route} title={title} />;
+                header: () => {
+                  return null;
                 },
               };
             }}

@@ -1,49 +1,49 @@
-import React, {useLayoutEffect} from 'react';
+import React, {useState} from 'react';
 import {ScrollView, View, Image} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import Nav from '../../routes/components';
-const Detail = props => {
-  const navigation = useNavigation();
-  const scrollHandler = e => {
-    const y = e.nativeEvent.contentOffset.y;
-    if (y > 140) {
-      navigation.setOptions({
-        header: () => <Detail.Layout list={list} />,
-      });
-    }
+const TITLE_BAR_HEIGHT = 200;
+const Detail = () => {
+  const [titleBarView, setTitleBarView] = useState<number>(0);
+  // 监听列表滚动事件
+  const scrollViewScroll = event => {
+    const y = event.nativeEvent.contentOffset.y;
+    // 设置标题栏和状态栏的透明度 titleOpacity
+    // 当页面滚动的距离等于标题栏的高度时，其透明度变为1
+    const scale = (y * 1.0) / TITLE_BAR_HEIGHT;
+    setTitleBarView(scale);
   };
-  const list = Array.from({length: 35});
-  navigation.setOptions({
-    header: () => (
-      <Detail.Layout scrollHandler={scrollHandler} {...props} list={list} />
-    ),
-  });
-};
-
-Detail.Layout = props => {
-  const {list, scrollHandler} = props;
+  const list = Array.from({length: 30});
   return (
-    <Nav.Layout>
-      <ScrollView onScroll={scrollHandler} scrollEventThrottle={444}>
+    <View>
+      {/*沉浸式标题*/}
+      <Nav.TabHead
+        showTitle={false}
+        opacity={titleBarView}
+        titleBarHeight={TITLE_BAR_HEIGHT}
+        showBack={true}
+        title={'测试测试'}
+      />
+      <ScrollView scrollEventThrottle={100} onScroll={scrollViewScroll}>
         <Image
           source={{
-            uri: 'https://img95.699pic.com/photo/50152/9794.jpg_wh300.jpg',
+            uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRagCHul6AikIkxabQvzt7HapBjhxjm0JK8rg&usqp=CAU',
           }}
-          style={{width: '100%', height: global.pxw(400)}}
+          style={{width: '100%', height: global.pxw(600)}}
         />
-        {list.map((_, index) => (
+        {list.map((item, index) => (
           <View
             key={index}
             style={{
               width: '100%',
-              height: 50,
-              backgroundColor: 'red',
-              marginBottom: 20,
+              height: 40,
+              backgroundColor: 'green',
+              marginBottom: 10,
             }}
           />
         ))}
       </ScrollView>
-    </Nav.Layout>
+    </View>
   );
 };
+
 export default Detail;

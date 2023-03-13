@@ -72,6 +72,7 @@ const Book = ({navigation}) => {
       data,
       title: data.title,
       back_title: '小说',
+      showBack: true,
     });
   }
 
