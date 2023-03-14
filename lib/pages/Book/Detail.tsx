@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {ScrollView, View, Image} from 'react-native';
 import Layout from '../../layout/index';
-const TITLE_BAR_HEIGHT = 200;
+const TITLE_BAR_HEIGHT = 150;
 const Detail = () => {
   const [titleBarView, setTitleBarView] = useState<number>(0);
   // 监听列表滚动事件
@@ -26,7 +26,7 @@ const Detail = () => {
       <ScrollView scrollEventThrottle={100} onScroll={scrollViewScroll}>
         <Image
           source={{
-            uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRagCHul6AikIkxabQvzt7HapBjhxjm0JK8rg&usqp=CAU',
+            uri: 'https://facebook.github.io/react/logo-og.png',
           }}
           style={{width: '100%', height: global.pxw(600)}}
         />

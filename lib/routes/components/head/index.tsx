@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StatusBar, StyleSheet} from 'react-native';
+import {View, Text, StatusBar, StyleSheet, Platform} from 'react-native';
 import Back from '../back';
 const NAV_BAR_HEIGHT = 40;
 const TabHead = props => {
@@ -20,6 +20,7 @@ const TabHead = props => {
   } = props;
   const backgroundColor = `rgba(255, 255, 255, ${opacity})`;
   const color = `rgba(0, 0, 0, ${opacity})`;
+
   return (
     <View
       style={[
@@ -29,9 +30,11 @@ const TabHead = props => {
         TitleStyle.titleBarWrapper,
       ]}>
       <StatusBar
+        animated={true}
         translucent={true}
-        backgroundColor={backgroundColor}
-        barStyle={'dark-content'}
+        backgroundColor={'transparent'}
+        barStyle={opacity ? 'dark-content' : 'light-content'}
+        hidden={false}
       />
       <View
         style={[
