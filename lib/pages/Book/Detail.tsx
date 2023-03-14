@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {ScrollView, View, Image} from 'react-native';
-import Nav from '../../routes/components';
+import Layout from '../../layout/index';
 const TITLE_BAR_HEIGHT = 200;
 const Detail = () => {
   const [titleBarView, setTitleBarView] = useState<number>(0);
@@ -16,7 +16,7 @@ const Detail = () => {
   return (
     <View>
       {/*沉浸式标题*/}
-      <Nav.TabHead
+      <Layout.HomeLayout
         showTitle={false}
         opacity={titleBarView}
         titleBarHeight={TITLE_BAR_HEIGHT}

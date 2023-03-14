@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import {View, Text, StatusBar, StyleSheet, NativeModules} from 'react-native';
+import {View, Text, StatusBar, StyleSheet} from 'react-native';
 import Back from '../back';
-const {StatusBarManager} = NativeModules;
 const NAV_BAR_HEIGHT = 40;
 const TabHead = props => {
   /**
@@ -17,52 +16,43 @@ const TabHead = props => {
     opacity = 1,
     titleBarHeight = 30,
     showTitle = true,
+    tabBarHeight,
   } = props;
-  console.log(props, '#######');
-  const [height, setHeigt] = useState(StatusBar.currentHeight);
-  const backgroundColor = `rgba(0, 0, 0, ${opacity})`;
-  if (global.isIOS) {
-    StatusBarManager.getHeight(statusBarHeight => {
-      setHeigt(statusBarHeight.height);
-    });
-  }
+  const backgroundColor = `rgba(255, 255, 255, ${opacity})`;
+  const color = `rgba(0, 0, 0, ${opacity})`;
   return (
-    <>
+    <View
+      style={[
+        {
+          height: NAV_BAR_HEIGHT + tabBarHeight,
+        },
+        TitleStyle.titleBarWrapper,
+      ]}>
+      <StatusBar
+        translucent={true}
+        backgroundColor={backgroundColor}
+        barStyle={'dark-content'}
+      />
       <View
         style={[
+          TitleStyle.titleBarBg,
           {
-            height: NAV_BAR_HEIGHT + height,
+            opacity: opacity,
           },
-          TitleStyle.titleBarWrapper,
+        ]}
+      />
+      <View
+        style={[
+          TitleStyle.titleBarContent,
+          {
+            marginTop: tabBarHeight,
+            height: NAV_BAR_HEIGHT,
+          },
         ]}>
-        <StatusBar
-          translucent={true}
-          backgroundColor={backgroundColor}
-          barStyle={'dark-content'}
-        />
-        <View
-          style={[
-            TitleStyle.titleBarBg,
-            {
-              opacity: opacity,
-            },
-          ]}
-        />
-        <View
-          style={[
-            TitleStyle.titleBarContent,
-            {
-              marginTop: height,
-              height: NAV_BAR_HEIGHT,
-            },
-          ]}>
-          <Back showBack={showBack} />
-          <Text style={{color: backgroundColor, fontSize: global.font(30)}}>
-            {title}
-          </Text>
-        </View>
+        <Back showBack={showBack} />
+        <Text style={{color: color, fontSize: global.font(30)}}>{title}</Text>
       </View>
-    </>
+    </View>
   );
 };
 const TitleStyle = StyleSheet.create({

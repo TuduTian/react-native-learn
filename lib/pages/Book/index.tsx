@@ -4,6 +4,7 @@ import BuildBookItem from './BuildItem';
 import type {IBookState, BookItem} from './type';
 import BOOK_DATA from '../../../db/book';
 import styled from 'styled-components';
+import Layout from '../../layout/index';
 let ID = 1;
 let count = 0;
 const FooterComponents = styled.View`
@@ -96,26 +97,28 @@ const Book = ({navigation}) => {
     );
   };
   return (
-    <FlatList
-      numColumns={3}
-      /* 内容为空时的内容展示 */
-      ListEmptyComponent={<Text>当前搜索暂无更多内容</Text>}
-      /* 当距离底部多远时触发 onEndReached 函数 */
-      onEndReached={bottomLoad}
-      /* 尾部组件 可以展示一个loading */
-      ListFooterComponent={BuildFooter}
-      /* 下拉刷新函数 */
-      onRefresh={refreshHandler}
-      refreshing={loading}
-      keyExtractor={item => item.id}
-      contentContainerStyle={{
-        padding: global.pxw(10),
-      }}
-      data={bookState.list}
-      renderItem={({item}) => (
-        <BuildBookItem onPress={onPressHandler} item={item} />
-      )}
-    />
+    <Layout.HomeLayout title={'小说'}>
+      <FlatList
+        numColumns={3}
+        /* 内容为空时的内容展示 */
+        ListEmptyComponent={<Text>当前搜索暂无更多内容</Text>}
+        /* 当距离底部多远时触发 onEndReached 函数 */
+        onEndReached={bottomLoad}
+        /* 尾部组件 可以展示一个loading */
+        ListFooterComponent={BuildFooter}
+        /* 下拉刷新函数 */
+        onRefresh={refreshHandler}
+        refreshing={loading}
+        keyExtractor={item => item.id}
+        contentContainerStyle={{
+          padding: global.pxw(10),
+        }}
+        data={bookState.list}
+        renderItem={({item}) => (
+          <BuildBookItem onPress={onPressHandler} item={item} />
+        )}
+      />
+    </Layout.HomeLayout>
   );
 };
 export default Book;

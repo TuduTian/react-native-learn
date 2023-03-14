@@ -1,5 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
-import {TouchableNativeFeedback, View, Text, StyleSheet} from 'react-native';
+import {
+  TouchableNativeFeedback,
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+} from 'react-native';
 import React from 'react';
 
 const Back = props => {
@@ -39,7 +45,7 @@ const backStyle = StyleSheet.create({
     left: 0,
     width: 40,
     flexDirection: 'row',
-    top: 3,
+    top: Platform.OS == 'ios' ? 8 : 10,
     zIndex: 999,
   },
 });
