@@ -5,6 +5,8 @@ import type {IBookState, BookItem} from './type';
 import BOOK_DATA from '../../../db/book';
 import styled from 'styled-components';
 import Layout from '../../layout/index';
+import axios from 'axios';
+import useSwr from 'swr';
 let ID = 1;
 let count = 0;
 const FooterComponents = styled.View`
@@ -19,6 +21,8 @@ const Font = styled.Text`
   font-size: 16px;
   color: #000;
 `;
+//TODO axios demo
+const REQ = async (url: string) => await axios.get(url);
 
 const Book = ({navigation}) => {
   const [bookState, setBookState] = useState<IBookState>({
@@ -27,6 +31,13 @@ const Book = ({navigation}) => {
   }); //要展示的数据列表数组
   const [loading, setLoading] = useState(false); // loading
   const [end, setEnd] = useState(false);
+  const {data, error, isLoading} = useSwr(
+    'http://api.bk.gxb.cn/api/directories/map/list?year=2023',
+    REQ,
+  );
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
   // 初始化数据
   const initData = (bool?: boolean) => {
     if (bool) {
