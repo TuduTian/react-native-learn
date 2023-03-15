@@ -95,3 +95,8 @@ android {
 6. 配置打包命令  package.json script 中配置 "b-a":"cd android && ./gradlew assembleRelease"
 7. 终端输入打包命令 yarn b-a 
 8. 打包后的文件在 /android/app/build/outputs/apk/release/ 下面的apk文件
+
+
+
+## 无线网调试
+> 网址： https://blog.csdn.net/qq_41911582/article/details/107384015
