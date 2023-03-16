@@ -35,9 +35,7 @@ const Book = ({navigation}) => {
     'http://api.bk.gxb.cn/api/directories/map/list?year=2023',
     REQ,
   );
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  console.log(data,'@@@')
   // 初始化数据
   const initData = (bool?: boolean) => {
     if (bool) {
